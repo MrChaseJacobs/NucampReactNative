@@ -14,7 +14,6 @@ class Reservation extends Component {
             hikeIn: false,
             date: new Date(),
             showCalendar: false,
-            showModal: false
         };
     }
 
@@ -53,7 +52,6 @@ class Reservation extends Component {
             hikeIn: false,
             date: new Date(),
             showCalendar: false,
-            showModal: false
         });
     }
 
