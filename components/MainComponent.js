@@ -325,11 +325,9 @@ const AppNavigator = createAppContainer(MainNavigator)
 
 class Main extends Component {
 
-    componentDidMount() {
-        this.props.fetchCampsites();
-        this.props.fetchComments();
-        this.props.fetchPromotions();
-        this.props.fetchPartners();
+    showNetInfo = async () => {
+        const connectionInfo = await NetInfo.fetch();
+
 
         NetInfo.fetch().then(connectionInfo => {
             (Platform.OS === 'ios')
@@ -338,10 +336,19 @@ class Main extends Component {
                     connectionInfo.type, ToastAndroid.LONG);
         });
 
-        this.unsubscribeNetInfo = NetInfo.addEventListener(connectionInfo => {
-            this.handleConnectivityChange(connectionInfo);
-        });
+        // this.unsubscribeNetInfo = NetInfo.addEventListener(connectionInfo => {
+        //     this.handleConnectivityChange(connectionInfo);
+        // });
     }
+
+    componentDidMount() {
+        this.props.fetchCampsites();
+        this.props.fetchComments();
+        this.props.fetchPromotions();
+        this.props.fetchPartners();
+        this.showNetInfo();
+    }
+
 
     componentWillUnmount() {
         this.unsubscribeNetInfo();
